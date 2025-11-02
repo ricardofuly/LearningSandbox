@@ -94,6 +94,7 @@ void ALPlayerController::HandleJump(const FInputActionValue& InputActionValue)
 	PlayerCharacter->Jump();	
 }
 //@TODO: Implement after ability system setup
-void ALPlayerController::HandleAttack(const FInputActionValue& InputActionValue)
+void ALPlayerController::HandleAttack(UGameplayAbility* GameplayAbility)
 {
+	
 }
