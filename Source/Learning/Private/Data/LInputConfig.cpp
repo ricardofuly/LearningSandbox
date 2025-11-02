@@ -15,3 +15,15 @@ const UInputAction* ULInputConfig::FindInputActionForTag(const FGameplayTag& Inp
  
 	return nullptr;
 }
+
+UGameplayAbility* ULInputConfig::FindAbilityForTag(const FGameplayTag& InputTag) const
+{
+	for (const FTaggedInputAction& TaggedInputAction : TaggedInputActions)
+	{
+		if (TaggedInputAction.InputAction && TaggedInputAction.InputTag == InputTag)
+		{
+			return TaggedInputAction.GameplayAbility;
+		}
+	}
+	return nullptr;
+}

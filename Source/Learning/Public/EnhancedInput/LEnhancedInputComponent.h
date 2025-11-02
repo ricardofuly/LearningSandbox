@@ -4,6 +4,7 @@
 
 #include "CoreMinimal.h"
 #include "EnhancedInputComponent.h"
+#include "Abilities/GameplayAbility.h"
 #include "Data/LInputConfig.h"
 #include "LEnhancedInputComponent.generated.h"
 
@@ -25,6 +26,13 @@ void ULEnhancedInputComponent::BindActionByTag(const ULInputConfig* InputConfig,
 	check(InputConfig);
 	if (const UInputAction* IA = InputConfig->FindInputActionForTag(InputTag))
 	{
-		BindAction(IA, TriggerEvent, Object, Func);
+		if (const UGameplayAbility* Ability = InputConfig->FindAbilityForTag(InputTag))
+		{
+			BindAction(IA, TriggerEvent, Object, Func, Ability);
+		}
+		else
+		{
+			BindAction(IA, TriggerEvent, Object, Func);			
+		}
 	}
 };
