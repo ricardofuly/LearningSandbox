@@ -27,7 +27,7 @@ protected:
 	void HandleMove(const FInputActionValue& InputActionValue);
 	void HandleLook(const FInputActionValue& InputActionValue);
 	void HandleJump(const FInputActionValue& InputActionValue);
-	void HandleAttack(UGameplayAbility* GameplayAbility);
+	void HandleAttack(const FInputActionValue& InputActionValue);
 
 	void TurnAtRate(float Rate);
 	void LookUpAtRate(float Rate);

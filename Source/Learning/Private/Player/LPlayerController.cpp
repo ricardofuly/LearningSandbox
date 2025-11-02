@@ -3,6 +3,9 @@
 
 #include "Player/LPlayerController.h"
 
+#include "AbilitySystemBlueprintLibrary.h"
+#include "AbilitySystemComponent.h"
+#include "EnhancedInputSubsystems.h"
 #include "EnhancedInput/LEnhancedInputComponent.h"
 #include "GameFramework/Character.h"
 #include "Tags/LGameplayTags.h"
@@ -27,15 +30,19 @@ void ALPlayerController::SetupInputComponent()
 	Super::SetupInputComponent();
 
 	ULEnhancedInputComponent* EnhancedInputComponent = Cast<ULEnhancedInputComponent>(InputComponent);
-
 	ensureMsgf(EnhancedInputComponent, TEXT("Enhanced Input Component is null!"));
-
+	
+	UEnhancedInputLocalPlayerSubsystem* InputSubsystem = ULocalPlayer::GetSubsystem<UEnhancedInputLocalPlayerSubsystem>(GetLocalPlayer());
+	if (!IsValid(InputSubsystem)) return;
+	
 	const FGameplayTags& GameplayTags = FGameplayTags::Get();
+	
+	InputSubsystem->AddMappingContext(InputConfig->InputMappingContext, 0);
 
 	EnhancedInputComponent->BindActionByTag(InputConfig, GameplayTags.InputTag_Move, ETriggerEvent::Triggered, this, &ALPlayerController::HandleMove);
 	EnhancedInputComponent->BindActionByTag(InputConfig, GameplayTags.InputTag_Look_Mouse, ETriggerEvent::Triggered, this, &ALPlayerController::HandleLook);
 	EnhancedInputComponent->BindActionByTag(InputConfig, GameplayTags.InputTag_Look_Stick, ETriggerEvent::Triggered, this, &ALPlayerController::HandleLook);
-	EnhancedInputComponent->BindActionByTag(InputConfig, GameplayTags.InputTag_Fire, ETriggerEvent::Triggered, this, &ALPlayerController::HandleAttack);
+	EnhancedInputComponent->BindActionByTag(InputConfig, GameplayTags.InputTag_Attack, ETriggerEvent::Triggered, this, &ALPlayerController::HandleAttack);
 	EnhancedInputComponent->BindActionByTag(InputConfig, GameplayTags.InputTag_Jump, ETriggerEvent::Triggered, this, &ALPlayerController::HandleJump);
 }
 
@@ -93,8 +100,13 @@ void ALPlayerController::HandleJump(const FInputActionValue& InputActionValue)
 	ACharacter* PlayerCharacter = Cast<ACharacter>(GetPawn());
 	PlayerCharacter->Jump();	
 }
-//@TODO: Implement after ability system setup
-void ALPlayerController::HandleAttack(UGameplayAbility* GameplayAbility)
+
+void ALPlayerController::HandleAttack(const FInputActionValue& InputActionValue)
 {
-	
+	UAbilitySystemComponent* ASC = UAbilitySystemBlueprintLibrary::GetAbilitySystemComponent(GetPawn());
+
+	const FGameplayTags& GameplayTags = FGameplayTags::Get();
+	TSubclassOf<UGameplayAbility> Ability = InputConfig->FindAbilityForTag(GameplayTags.InputTag_Attack);
+
+	ASC->TryActivateAbilityByClass(Ability);	
 }

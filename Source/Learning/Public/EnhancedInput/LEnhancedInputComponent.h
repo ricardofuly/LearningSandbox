@@ -26,13 +26,6 @@ void ULEnhancedInputComponent::BindActionByTag(const ULInputConfig* InputConfig,
 	check(InputConfig);
 	if (const UInputAction* IA = InputConfig->FindInputActionForTag(InputTag))
 	{
-		if (const UGameplayAbility* Ability = InputConfig->FindAbilityForTag(InputTag))
-		{
-			BindAction(IA, TriggerEvent, Object, Func, Ability);
-		}
-		else
-		{
-			BindAction(IA, TriggerEvent, Object, Func);			
-		}
+		BindAction(IA, TriggerEvent, Object, Func);		
 	}
 };

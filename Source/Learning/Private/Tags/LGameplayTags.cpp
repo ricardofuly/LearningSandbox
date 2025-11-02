@@ -22,7 +22,7 @@ void FGameplayTags::AddAllTags(UGameplayTagsManager& Manager)
 	AddTag(InputTag_Look_Mouse, "InputTag.Look.Mouse", "Look (mouse) input.");
 	AddTag(InputTag_Look_Stick, "InputTag.Look.Stick", "Look (stick) input.");
 	AddTag(InputTag_Jump, "InputTag.Jump", "Jump input");
-	AddTag(InputTag_Fire, "InputTag.Fire", "Fire input.");
+	AddTag(InputTag_Attack, "InputTag.Attack", "Attack input.");
 }
 
 void FGameplayTags::AddTag(FGameplayTag& OutTag, const ANSICHAR* TagName, const ANSICHAR* TagComment)
