@@ -3,6 +3,7 @@
 #pragma once
 
 #include "CoreMinimal.h"
+#include "Data/LInputConfig.h"
 #include "GameFramework/PlayerController.h"
 #include "LPlayerController.generated.h"
 
@@ -13,4 +14,31 @@ UCLASS()
 class LEARNING_API ALPlayerController : public APlayerController
 {
 	GENERATED_BODY()
+
+public:
+	virtual void BeginPlay() override;
+	virtual void OnPossess(APawn* InPawn) override;
+	virtual void OnRep_PlayerState() override;
+
+protected:
+	virtual void SetupInputComponent() override;
+
+	// Input Function Handlers
+	void HandleMove(const FInputActionValue& InputActionValue);
+	void HandleLook(const FInputActionValue& InputActionValue);
+	void HandleJump(const FInputActionValue& InputActionValue);
+	void HandleAttack(const FInputActionValue& InputActionValue);
+
+	void TurnAtRate(float Rate);
+	void LookUpAtRate(float Rate);
+
+private:
+
+	UPROPERTY(EditDefaultsOnly, Category= "Input")
+	ULInputConfig* InputConfig;
+
+	UPROPERTY(EditDefaultsOnly, Category = "Input")
+	float TurnRateGamepad = 45.f;
 };
+
+
