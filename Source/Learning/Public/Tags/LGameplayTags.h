@@ -18,7 +18,7 @@ public:
 	FGameplayTag InputTag_Look_Mouse;
 	FGameplayTag InputTag_Look_Stick;
 	FGameplayTag InputTag_Jump;
-	FGameplayTag InputTag_Fire;
+	FGameplayTag InputTag_Attack;
  
 protected:
  

@@ -16,7 +16,7 @@ const UInputAction* ULInputConfig::FindInputActionForTag(const FGameplayTag& Inp
 	return nullptr;
 }
 
-UGameplayAbility* ULInputConfig::FindAbilityForTag(const FGameplayTag& InputTag) const
+TSubclassOf<UGameplayAbility> ULInputConfig::FindAbilityForTag(const FGameplayTag& InputTag) const
 {
 	for (const FTaggedInputAction& TaggedInputAction : TaggedInputActions)
 	{
