@@ -3,26 +3,14 @@
 
 #include "Data/LInputConfig.h"
 
-const UInputAction* ULInputConfig::FindInputActionForTag(const FGameplayTag& InputTag) const
-{
-	for (const FTaggedInputAction& TaggedInputAction : TaggedInputActions)
-	{
-		if (TaggedInputAction.InputAction && TaggedInputAction.InputTag == InputTag)
-		{
-			return TaggedInputAction.InputAction;
-		}
-	}
- 
-	return nullptr;
-}
 
-TSubclassOf<UGameplayAbility> ULInputConfig::FindAbilityForTag(const FGameplayTag& InputTag) const
+UInputAction* ULInputConfig::FindNativeInputActionByTag(const FGameplayTag& InInputTag) const
 {
-	for (const FTaggedInputAction& TaggedInputAction : TaggedInputActions)
+	for (const FTaggedInputAction& InputActionConfig : NativeInputActions)
 	{
-		if (TaggedInputAction.InputAction && TaggedInputAction.InputTag == InputTag)
+		if (InputActionConfig.InputTag == InInputTag && InputActionConfig.InputAction)
 		{
-			return TaggedInputAction.GameplayAbility;
+			return InputActionConfig.InputAction;
 		}
 	}
 	return nullptr;

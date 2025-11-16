@@ -6,8 +6,11 @@
 #include "AbilitySystemBlueprintLibrary.h"
 #include "AbilitySystemComponent.h"
 #include "EnhancedInputSubsystems.h"
+#include "AbilitySystem/LAbilitySystemComponent.h"
 #include "EnhancedInput/LEnhancedInputComponent.h"
 #include "GameFramework/Character.h"
+#include "GameFramework/PlayerState.h"
+#include "Player/LPlayerState.h"
 #include "Tags/LGameplayTags.h"
 
 void ALPlayerController::BeginPlay()
@@ -37,34 +40,28 @@ void ALPlayerController::SetupInputComponent()
 	
 	const FGameplayTags& GameplayTags = FGameplayTags::Get();
 	
-	InputSubsystem->AddMappingContext(InputConfig->InputMappingContext, 0);
+	InputSubsystem->AddMappingContext(InputConfig->DefaultMappingContext, 0);
 
-	EnhancedInputComponent->BindActionByTag(InputConfig, GameplayTags.InputTag_Move, ETriggerEvent::Triggered, this, &ALPlayerController::HandleMove);
-	EnhancedInputComponent->BindActionByTag(InputConfig, GameplayTags.InputTag_Look_Mouse, ETriggerEvent::Triggered, this, &ALPlayerController::HandleLook);
-	EnhancedInputComponent->BindActionByTag(InputConfig, GameplayTags.InputTag_Look_Stick, ETriggerEvent::Triggered, this, &ALPlayerController::HandleLook);
-	EnhancedInputComponent->BindActionByTag(InputConfig, GameplayTags.InputTag_Attack, ETriggerEvent::Triggered, this, &ALPlayerController::HandleAttack);
-	EnhancedInputComponent->BindActionByTag(InputConfig, GameplayTags.InputTag_Jump, ETriggerEvent::Triggered, this, &ALPlayerController::HandleJump);
+	EnhancedInputComponent->BindNativeAction(InputConfig, GameplayTags.InputTag_Move, ETriggerEvent::Triggered, this, &ALPlayerController::HandleMove);
+	EnhancedInputComponent->BindNativeAction(InputConfig, GameplayTags.InputTag_Look_Mouse, ETriggerEvent::Triggered, this, &ALPlayerController::HandleLook);
+	EnhancedInputComponent->BindNativeAction(InputConfig, GameplayTags.InputTag_Look_Stick, ETriggerEvent::Triggered, this, &ALPlayerController::HandleLook);
+
+	EnhancedInputComponent->BindAbilityAction(InputConfig, this, &ThisClass::AbilityInputPressed, &ThisClass::AbilityInputReleased);
+	
 }
 
 void ALPlayerController::HandleMove(const FInputActionValue& InputActionValue)
 {
-	if (this != nullptr)
-	{
-		const FVector2D MoveValue = InputActionValue.Get<FVector2D>();
-		const FRotator MovementRotation(0.0f, this->GetControlRotation().Yaw, 0.0f);
- 
-		if (MoveValue.X != 0.0f)
-		{
-			const FVector MovementDirection = MovementRotation.RotateVector(FVector::RightVector);
-			GetPawn()->AddMovementInput(MovementDirection, MoveValue.X);
-		}
- 
-		if (MoveValue.Y != 0.0f)
-		{
-			const FVector MovementDirection = MovementRotation.RotateVector(FVector::ForwardVector);
-			GetPawn()->AddMovementInput(MovementDirection, MoveValue.Y);
-		}
-	}
+	if (!IsValid(GetPawn())) return;
+
+	const FVector2D MovementVector = InputActionValue.Get<FVector2D>();
+	
+	const FRotator YawRotation(0.f, GetControlRotation().Yaw, 0.f);
+	const FVector ForwardDirection = FRotationMatrix(YawRotation).GetUnitAxis(EAxis::X);
+	const FVector RightDirection = FRotationMatrix(YawRotation).GetUnitAxis(EAxis::Y);
+
+	GetPawn()->AddMovementInput(ForwardDirection, MovementVector.Y);
+	GetPawn()->AddMovementInput(RightDirection, MovementVector.X);
 }
 
 void ALPlayerController::TurnAtRate(float Rate)
@@ -79,34 +76,30 @@ void ALPlayerController::LookUpAtRate(float Rate)
 
 void ALPlayerController::HandleLook(const FInputActionValue& InputActionValue)
 {
-	if (this != nullptr)
+	const FVector2D LookAxisVector = InputActionValue.Get<FVector2D>();
+
+	TurnAtRate(LookAxisVector.X);
+	LookUpAtRate(LookAxisVector.Y);
+}
+
+void ALPlayerController::AbilityInputPressed(FGameplayTag InputTag)
+{
+	if (ALPlayerState* PS = GetPlayerState<ALPlayerState>())
 	{
-		const FVector2D LookValue = InputActionValue.Get<FVector2D>();
- 
-		if (LookValue.X != 0.0f)
-		{
-			TurnAtRate(LookValue.X);
-		}
- 
-		if (LookValue.Y != 0.0f)
-		{
-			LookUpAtRate(LookValue.Y);
-		}
+		ULAbilitySystemComponent* ASC = PS->GetAbilitySystemComponent();
+		if (!ASC) return;
+
+		ASC->OnAbilityInputPressed(InputTag);
 	}
 }
 
-void ALPlayerController::HandleJump(const FInputActionValue& InputActionValue)
+void ALPlayerController::AbilityInputReleased(FGameplayTag InputTag)
 {
-	ACharacter* PlayerCharacter = Cast<ACharacter>(GetPawn());
-	PlayerCharacter->Jump();	
-}
+	if (ALPlayerState* PS = GetPlayerState<ALPlayerState>())
+	{
+		ULAbilitySystemComponent* ASC = PS->GetAbilitySystemComponent();
+		if (!ASC) return;
 
-void ALPlayerController::HandleAttack(const FInputActionValue& InputActionValue)
-{
-	UAbilitySystemComponent* ASC = UAbilitySystemBlueprintLibrary::GetAbilitySystemComponent(GetPawn());
-
-	const FGameplayTags& GameplayTags = FGameplayTags::Get();
-	TSubclassOf<UGameplayAbility> Ability = InputConfig->FindAbilityForTag(GameplayTags.InputTag_Attack);
-
-	ASC->TryActivateAbilityByClass(Ability);	
+		ASC->OnAbilityInputReleased(InputTag);
+	}
 }
