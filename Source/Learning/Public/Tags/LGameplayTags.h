@@ -19,6 +19,14 @@ public:
 	FGameplayTag InputTag_Look_Stick;
 	FGameplayTag InputTag_Jump;
 	FGameplayTag InputTag_Attack;
+	FGameplayTag InputTag_Toggleable;
+	FGameplayTag InputTag_MustBeHeld;
+	FGameplayTag Shared_Ability_OnGiven;
+	
+	//Event Tags
+	FGameplayTag Events_Death;
+	FGameplayTag Events_Panting;
+	FGameplayTag Events_LevelUp;
  
 protected:
  

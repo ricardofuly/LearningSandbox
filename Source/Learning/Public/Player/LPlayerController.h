@@ -26,8 +26,9 @@ protected:
 	// Input Function Handlers
 	void HandleMove(const FInputActionValue& InputActionValue);
 	void HandleLook(const FInputActionValue& InputActionValue);
-	void HandleJump(const FInputActionValue& InputActionValue);
-	void HandleAttack(const FInputActionValue& InputActionValue);
+
+	void AbilityInputPressed(FGameplayTag InputTag);
+	void AbilityInputReleased(FGameplayTag InputTag);
 
 	void TurnAtRate(float Rate);
 	void LookUpAtRate(float Rate);

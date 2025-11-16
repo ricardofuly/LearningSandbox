@@ -17,14 +17,21 @@ struct FTaggedInputAction
  
 public:
  
-	UPROPERTY(EditDefaultsOnly)
-	const UInputAction* InputAction = nullptr;
- 
-	UPROPERTY(EditDefaultsOnly, Meta = (Categories = "InputTag"))
+	FTaggedInputAction()
+	{
+		InputAction = nullptr;
+	}
+
+	UPROPERTY(EditDefaultsOnly, BlueprintReadOnly, meta = (Categories = "InputTag"))
 	FGameplayTag InputTag;
 
-	UPROPERTY(EditDefaultsOnly)
-	TSubclassOf<UGameplayAbility> GameplayAbility;
+	UPROPERTY(EditDefaultsOnly, BlueprintReadOnly)
+	UInputAction* InputAction;
+
+	bool IsValid() const
+	{
+		return InputTag.IsValid() && InputAction != nullptr;
+	}
 };
 
 /**
@@ -35,17 +42,14 @@ class LEARNING_API ULInputConfig : public UDataAsset
 {
 	GENERATED_BODY()
 public:
-	// Returns the first Input Action associated with a given tag.
-	const UInputAction* FindInputActionForTag(const FGameplayTag& InputTag) const;
-
-	TSubclassOf<UGameplayAbility> FindAbilityForTag(const FGameplayTag& InputTag) const;
- 
-public:
-
 	UPROPERTY(EditDefaultsOnly, BlueprintReadOnly)
-	UInputMappingContext* InputMappingContext;
-	
-	// List of input actions used by the owner. These input actions are mapped to a gameplay tag and must be manually bound.
-	UPROPERTY(EditDefaultsOnly, BlueprintReadOnly, Meta = (TitleProperty = "InputAction"))
-	TArray<FTaggedInputAction> TaggedInputActions;
+	UInputMappingContext* DefaultMappingContext;
+
+	UPROPERTY(EditDefaultsOnly, BlueprintReadOnly, meta=(TitleProperty = "InputTag"))
+	TArray<FTaggedInputAction> NativeInputActions;
+
+	UPROPERTY(EditDefaultsOnly, BlueprintReadOnly, meta=(TitleProperty = "InputTag"))
+	TArray<FTaggedInputAction> AbilityInputActions;
+
+	UInputAction* FindNativeInputActionByTag(const FGameplayTag& InInputTag) const;
 };
