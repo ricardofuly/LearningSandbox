@@ -1,0 +1,118 @@
+﻿#pragma once
+
+#include "CoreMinimal.h"
+#include "NativeGameplayTags.h"
+
+namespace Sandbox
+{
+	// Input Tags
+	UE_DECLARE_GAMEPLAY_TAG_EXTERN(InputTag_Move);
+	UE_DECLARE_GAMEPLAY_TAG_EXTERN(InputTag_Look);
+	UE_DECLARE_GAMEPLAY_TAG_EXTERN(InputTag_Equip);
+	UE_DECLARE_GAMEPLAY_TAG_EXTERN(InputTag_Unequip);
+	UE_DECLARE_GAMEPLAY_TAG_EXTERN(InputTag_LightAttack_Axe);
+	UE_DECLARE_GAMEPLAY_TAG_EXTERN(InputTag_HeavyAttack_Axe);
+	UE_DECLARE_GAMEPLAY_TAG_EXTERN(InputTag_Roll);
+	UE_DECLARE_GAMEPLAY_TAG_EXTERN(InputTag_Jump);
+	UE_DECLARE_GAMEPLAY_TAG_EXTERN(InputTag_Dash);
+	UE_DECLARE_GAMEPLAY_TAG_EXTERN(InputTag_SwitchTarget);
+	
+	UE_DECLARE_GAMEPLAY_TAG_EXTERN(InputTag_MustBeHeld);
+	UE_DECLARE_GAMEPLAY_TAG_EXTERN(InputTag_MustBeHeld_Block);
+
+	UE_DECLARE_GAMEPLAY_TAG_EXTERN(InputTag_Toggleable);
+	UE_DECLARE_GAMEPLAY_TAG_EXTERN(InputTag_Toggleable_TargetLock);
+
+	// Player Tags
+	UE_DECLARE_GAMEPLAY_TAG_EXTERN(Player_Ability_Equip_Axe);
+	UE_DECLARE_GAMEPLAY_TAG_EXTERN(Player_Ability_Equip_LightSword);
+	UE_DECLARE_GAMEPLAY_TAG_EXTERN(Player_Ability_Equip_GreatSword);
+	UE_DECLARE_GAMEPLAY_TAG_EXTERN(Player_Ability_Equip_TwinSword);
+	UE_DECLARE_GAMEPLAY_TAG_EXTERN(Player_Ability_Unequip_Axe);
+	UE_DECLARE_GAMEPLAY_TAG_EXTERN(Player_Ability_Unequip_LightSword);
+	UE_DECLARE_GAMEPLAY_TAG_EXTERN(Player_Ability_Unequip_GreatSword);
+	UE_DECLARE_GAMEPLAY_TAG_EXTERN(Player_Ability_Unequip_TwinSword);
+	UE_DECLARE_GAMEPLAY_TAG_EXTERN(Player_Ability_Attack_Light_Axe);
+	UE_DECLARE_GAMEPLAY_TAG_EXTERN(Player_Ability_Attack_Heavy_Axe);
+	UE_DECLARE_GAMEPLAY_TAG_EXTERN(Player_Ability_HitPause);
+	UE_DECLARE_GAMEPLAY_TAG_EXTERN(Player_Ability_Roll);
+	UE_DECLARE_GAMEPLAY_TAG_EXTERN(Player_Ability_Jump);
+	UE_DECLARE_GAMEPLAY_TAG_EXTERN(Player_Ability_Dash);
+	UE_DECLARE_GAMEPLAY_TAG_EXTERN(Player_Ability_Block);
+	UE_DECLARE_GAMEPLAY_TAG_EXTERN(Player_Ability_TargetLock);
+
+	// Weapon Tags
+	UE_DECLARE_GAMEPLAY_TAG_EXTERN(Player_Weapon_Axe);
+	UE_DECLARE_GAMEPLAY_TAG_EXTERN(Player_Weapon_Sword);
+	UE_DECLARE_GAMEPLAY_TAG_EXTERN(Player_Weapon_SwordAndShield);
+	UE_DECLARE_GAMEPLAY_TAG_EXTERN(Player_Weapon_GreatSword);
+	UE_DECLARE_GAMEPLAY_TAG_EXTERN(Player_Weapon_TwinSword);
+
+	// Events
+	UE_DECLARE_GAMEPLAY_TAG_EXTERN(Player_Event_Weapon_Equipped_Axe);
+	UE_DECLARE_GAMEPLAY_TAG_EXTERN(Player_Event_Weapon_Equipped_LightSword);
+	UE_DECLARE_GAMEPLAY_TAG_EXTERN(Player_Event_Weapon_Equipped_GreatSword);
+	UE_DECLARE_GAMEPLAY_TAG_EXTERN(Player_Event_Weapon_Equipped_TwinSword);
+	UE_DECLARE_GAMEPLAY_TAG_EXTERN(Player_Event_Weapon_Unequipped_Axe);
+	UE_DECLARE_GAMEPLAY_TAG_EXTERN(Player_Event_Weapon_Unequipped_LightSword);
+	UE_DECLARE_GAMEPLAY_TAG_EXTERN(Player_Event_Weapon_Unequipped_GreatSword);
+	UE_DECLARE_GAMEPLAY_TAG_EXTERN(Player_Event_Weapon_Unequipped_TwinSword);
+	UE_DECLARE_GAMEPLAY_TAG_EXTERN(Player_Event_Weapon_LightAttack_Axe);
+	UE_DECLARE_GAMEPLAY_TAG_EXTERN(Player_Event_Weapon_HeavyAttack_Axe);
+	UE_DECLARE_GAMEPLAY_TAG_EXTERN(Player_Event_HitPause);
+	UE_DECLARE_GAMEPLAY_TAG_EXTERN(Player_Event_SuccessfulBlock);
+	UE_DECLARE_GAMEPLAY_TAG_EXTERN(Player_Event_SwitchTarget_Left);
+	UE_DECLARE_GAMEPLAY_TAG_EXTERN(Player_Event_SwitchTarget_Right);
+	UE_DECLARE_GAMEPLAY_TAG_EXTERN(Player_Event_LevelUp);
+
+	//Status Tags
+	UE_DECLARE_GAMEPLAY_TAG_EXTERN(Player_Status_JumpToFinisher);
+	UE_DECLARE_GAMEPLAY_TAG_EXTERN(Player_Status_Rolling);
+	UE_DECLARE_GAMEPLAY_TAG_EXTERN(Player_Status_Jumping);
+	UE_DECLARE_GAMEPLAY_TAG_EXTERN(Player_Status_Dashing);
+	UE_DECLARE_GAMEPLAY_TAG_EXTERN(Player_Status_Blocking);
+	UE_DECLARE_GAMEPLAY_TAG_EXTERN(Player_Status_Equipped_LightSword);
+	UE_DECLARE_GAMEPLAY_TAG_EXTERN(Player_Status_Equipped_GreatSword);
+	UE_DECLARE_GAMEPLAY_TAG_EXTERN(Player_Status_Equipped_TwinSword);
+	UE_DECLARE_GAMEPLAY_TAG_EXTERN(Player_Status_TargetLock);
+
+	// Attack Types
+	UE_DECLARE_GAMEPLAY_TAG_EXTERN(Player_SetByCaller_AttackType_Light);
+	UE_DECLARE_GAMEPLAY_TAG_EXTERN(Player_SetByCaller_AttackType_Heavy);
+
+	// Enemy Tags
+	UE_DECLARE_GAMEPLAY_TAG_EXTERN(Enemy_Weapon);
+	
+	UE_DECLARE_GAMEPLAY_TAG_EXTERN(Enemy_Ability_Melee);
+	UE_DECLARE_GAMEPLAY_TAG_EXTERN(Enemy_Ability_Ranged);
+
+	UE_DECLARE_GAMEPLAY_TAG_EXTERN(Enemy_Ability_DrawHealthBar);
+	
+	UE_DECLARE_GAMEPLAY_TAG_EXTERN(Enemy_Status_Strafing);
+	UE_DECLARE_GAMEPLAY_TAG_EXTERN(Enemy_Status_UnderAttack);
+	UE_DECLARE_GAMEPLAY_TAG_EXTERN(Enemy_Status_Unblockable);
+	
+
+	// Shared Event Tags
+	UE_DECLARE_GAMEPLAY_TAG_EXTERN(Shared_Event_MeleeHit);
+	UE_DECLARE_GAMEPLAY_TAG_EXTERN(Shared_Event_HitReact);
+	UE_DECLARE_GAMEPLAY_TAG_EXTERN(Shared_Event_SpawnProjectile);	
+	UE_DECLARE_GAMEPLAY_TAG_EXTERN(Shared_Event_Killed);
+	UE_DECLARE_GAMEPLAY_TAG_EXTERN(Shared_Event_Exhausted);
+	UE_DECLARE_GAMEPLAY_TAG_EXTERN(Shared_Event_NoMana);
+	UE_DECLARE_GAMEPLAY_TAG_EXTERN(Shared_SetByCaller_BaseDamage);
+
+	// Shared Ability Tags
+	UE_DECLARE_GAMEPLAY_TAG_EXTERN(Shared_Ability_HitReact);
+	UE_DECLARE_GAMEPLAY_TAG_EXTERN(Shared_Ability_Death);
+	UE_DECLARE_GAMEPLAY_TAG_EXTERN(Shared_Ability_OnGiven);
+
+	// Shared Status Tags
+	UE_DECLARE_GAMEPLAY_TAG_EXTERN(Shared_Status_Dead);
+	UE_DECLARE_GAMEPLAY_TAG_EXTERN(Shared_Status_HitReact_Front);
+	UE_DECLARE_GAMEPLAY_TAG_EXTERN(Shared_Status_HitReact_Back);
+	UE_DECLARE_GAMEPLAY_TAG_EXTERN(Shared_Status_HitReact_Left);
+	UE_DECLARE_GAMEPLAY_TAG_EXTERN(Shared_Status_HitReact_Right);
+
+	extern FName const Player;	
+}
