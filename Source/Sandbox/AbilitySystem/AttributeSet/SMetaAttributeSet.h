@@ -24,6 +24,8 @@ public:
 	void AddXP(float Amount, const FGameplayEffectModCallbackData& Data, const FGameplayEventData& Payload);
 	float GetRequiredXPForNextLevel() const;
 	
+	FORCEINLINE int32 GetPlayerLevel() const { return FMath::FloorToInt(GetLevel()); }
+	
 	// Attributes
 	UPROPERTY(BlueprintReadOnly, ReplicatedUsing = OnRep_Health)
 	FGameplayAttributeData Health;

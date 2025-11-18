@@ -9,6 +9,7 @@
 #include "AbilitySystem/AttributeSet/SMetaAttributeSet.h"
 #include "AbilitySystem/AttributeSet/SPrimaryAttributeSet.h"
 #include "AbilitySystem/AttributeSet/SSecondaryAttributeSet.h"
+#include "Data/Player/SPlayerInitialData.h"
 #include "GameFramework/PlayerState.h"
 #include "SPlayerState.generated.h"
 
@@ -32,6 +33,12 @@ protected:
 	
 	virtual void BeginPlay() override;
 	
+	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Sandbox | AbilitySystem")
+	EGameplayEffectReplicationMode ReplicationMode = EGameplayEffectReplicationMode::Mixed;
+	
+	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Sandbox | AbilitySystem")
+	TObjectPtr<USPlayerInitialData> PlayerInitialData;
+	
 private:
 	
 	UPROPERTY(VisibleAnywhere, Category = "Sandbox | AbilitySystem")
@@ -45,7 +52,4 @@ private:
 	
 	UPROPERTY()
 	TObjectPtr<USSecondaryAttributeSet> SecondaryAttributeSet;
-	
-	UPROPERTY(EditAnywhere, Category = "Sandbox | AbilitySystem")
-	EGameplayEffectReplicationMode ReplicationMode = EGameplayEffectReplicationMode::Mixed;
 };
