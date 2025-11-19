@@ -10,6 +10,7 @@
 #include "AbilitySystem/AttributeSet/SPrimaryAttributeSet.h"
 #include "AbilitySystem/AttributeSet/SSecondaryAttributeSet.h"
 #include "Data/Player/SPlayerInitialData.h"
+#include "Engine/StreamableManager.h"
 #include "GameFramework/PlayerState.h"
 #include "SPlayerState.generated.h"
 
@@ -33,11 +34,16 @@ protected:
 	
 	virtual void BeginPlay() override;
 	
+	void RequestCharacterDataToLoad(TSoftObjectPtr<USPlayerInitialData> InCharacterData);
+	void ApplyStartUpData(TSoftObjectPtr<USPlayerInitialData> InCharacterData);
+	
+	void InitActorInfo(APlayerState* PlayerState, APawn* InPawn);
+	
 	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Sandbox | AbilitySystem")
 	EGameplayEffectReplicationMode ReplicationMode = EGameplayEffectReplicationMode::Mixed;
 	
 	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Sandbox | AbilitySystem")
-	TObjectPtr<USPlayerInitialData> PlayerInitialData;
+	TSoftObjectPtr<USPlayerInitialData> PlayerInitialData;
 	
 private:
 	
@@ -52,4 +58,6 @@ private:
 	
 	UPROPERTY()
 	TObjectPtr<USSecondaryAttributeSet> SecondaryAttributeSet;
+	
+	TSharedPtr<FStreamableHandle> StreamableHandle;
 };

@@ -3,6 +3,8 @@
 
 #include "SPlayerState.h"
 
+#include "Engine/AssetManager.h"
+
 ASPlayerState::ASPlayerState()
 {
 	AbilitySystemComponent = CreateDefaultSubobject<USAbilitySystemComponent>("AbilitySystemComponent");
@@ -12,13 +14,20 @@ ASPlayerState::ASPlayerState()
 	MetaAttributeSet = CreateDefaultSubobject<USMetaAttributeSet>("MetaAttributeSet");
 	PrimaryAttributeSet = CreateDefaultSubobject<USPrimaryAttributeSet>("PrimaryAttributeSet");
 	SecondaryAttributeSet = CreateDefaultSubobject<USSecondaryAttributeSet>("SecondaryAttributeSet");
+	
+	SetNetUpdateFrequency(100.f);
 }
 
 void ASPlayerState::OnPossess(APawn* InPawn)
 {
 	if (IsValid(AbilitySystemComponent) && IsValid(InPawn))
 	{
-		AbilitySystemComponent->InitAbilityActorInfo(this, InPawn);
+		InitActorInfo(this, InPawn);
+	}
+	
+	if (HasAuthority())
+	{
+		RequestCharacterDataToLoad(PlayerInitialData);
 	}
 }
 
@@ -26,8 +35,10 @@ void ASPlayerState::OnRep_PlayerState()
 {
 	if (IsValid(AbilitySystemComponent) && IsValid(GetPawn()))
 	{
-		AbilitySystemComponent->InitAbilityActorInfo(this, GetPawn());
+		InitActorInfo(this, GetPawn());
 	}
+	
+	RequestCharacterDataToLoad(PlayerInitialData);
 }
 
 USAbilitySystemComponent* ASPlayerState::GetAbilitySystemComponent() const
@@ -48,34 +59,46 @@ TArray<TObjectPtr<USAttributeSetBase>> ASPlayerState::GetAttributeSet() const
 void ASPlayerState::BeginPlay()
 {
 	Super::BeginPlay();
+	
+	RequestCharacterDataToLoad(PlayerInitialData);
+	InitActorInfo(this, GetPawn());
+}
 
-	// Initialize Abilities and Effects
-	if (!PlayerInitialData->InitialAbilities.IsEmpty())
+void ASPlayerState::RequestCharacterDataToLoad(TSoftObjectPtr<USPlayerInitialData> InCharacterData)
+{
+	if (!InCharacterData.IsNull())
 	{
-		for (TObjectPtr<UGameplayAbility> Ability : PlayerInitialData->InitialAbilities)
+		FStreamableManager& StreamableManager = UAssetManager::GetStreamableManager();
+		
+		if (GEngine)
 		{
-			if (IsValid(AbilitySystemComponent) && IsValid(Ability))
+			GEngine->AddOnScreenDebugMessage(-1, 5.f, FColor::Red, "Loading Player Data...");
+		}
+
+		FSoftObjectPath SoftObjectPath = PlayerInitialData.ToSoftObjectPath();
+		StreamableHandle = StreamableManager.RequestAsyncLoad(SoftObjectPath, FStreamableDelegate::CreateUObject(this, &ThisClass::ApplyStartUpData, InCharacterData));
+	}
+}
+
+void ASPlayerState::ApplyStartUpData(TSoftObjectPtr<USPlayerInitialData> InCharacterData)
+{
+	if (!HasAuthority()) return;
+	if (!GetAbilitySystemComponent()) return;
+	if (PlayerInitialData.IsValid())
+	{
+		if (const USPlayerInitialData* LoadData = InCharacterData.Get())
+		{
+			LoadData->GiveToAbilitySystemComponent(AbilitySystemComponent);
+			if (GEngine)
 			{
-				AbilitySystemComponent->GiveAbility(FGameplayAbilitySpec(Ability, MetaAttributeSet->GetPlayerLevel()));
+				GEngine->AddOnScreenDebugMessage(-1, 5.f, FColor::Green, "Player Data Applied!");
 			}
 		}
 	}
+	StreamableHandle.Reset();
+}
 
-	if (!PlayerInitialData->InitialEffects.IsEmpty())
-	{
-		for (TSubclassOf<UGameplayEffect> EffectClass : PlayerInitialData->InitialEffects)
-		{
-			if (IsValid(AbilitySystemComponent) && *EffectClass)
-			{
-				FGameplayEffectContextHandle EffectContext = AbilitySystemComponent->MakeEffectContext();
-				EffectContext.AddSourceObject(this);
-
-				FGameplayEffectSpecHandle SpecHandle = AbilitySystemComponent->MakeOutgoingSpec(EffectClass, MetaAttributeSet->GetPlayerLevel(), EffectContext);
-				if (SpecHandle.IsValid())
-				{
-					AbilitySystemComponent->ApplyGameplayEffectSpecToSelf(*SpecHandle.Data.Get());
-				}
-			}
-		}
-	}
+void ASPlayerState::InitActorInfo(APlayerState* PlayerState, APawn* InPawn)
+{
+	AbilitySystemComponent->InitAbilityActorInfo(PlayerState, InPawn);
 }
