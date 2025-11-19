@@ -21,11 +21,10 @@ USAbilitySystemComponent::USAbilitySystemComponent()
 void USAbilitySystemComponent::BeginPlay()
 {
 	Super::BeginPlay();
-
+	
 	// ...
 	
 }
-
 
 // Called every frame
 void USAbilitySystemComponent::TickComponent(float DeltaTime, ELevelTick TickType,

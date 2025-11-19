@@ -25,6 +25,7 @@ public:
 
 	void OnAbilityInputPressed(const FGameplayTag& InInputTag);
 	void OnAbilityInputReleased(const FGameplayTag& InInputTag);
+	
 
 	UFUNCTION(BlueprintCallable, Category = "Solaries | Abilities")
 	void SetAbilityLevel(TSubclassOf<UGameplayAbility> AbilityClass, int32 NewLevel);
