@@ -59,7 +59,7 @@ void ASandboxPlayerController::AbilityInputPressed(FGameplayTag InInputTag)
 {
 	if (ASPlayerState* PS = GetPlayerState<ASPlayerState>())
 	{
-		USAbilitySystemComponent* ASC = PS->GetAbilitySystemComponent();
+		USAbilitySystemComponent* ASC = PS->AbilitySystemComponent;
 		if (!IsValid(ASC)) return;
 		ASC->OnAbilityInputPressed(InInputTag);
 	};		
@@ -69,7 +69,7 @@ void ASandboxPlayerController::AbilityInputReleased(FGameplayTag InInputTag)
 {
 	if (ASPlayerState* PS = GetPlayerState<ASPlayerState>())
 	{
-		USAbilitySystemComponent* ASC = PS->GetAbilitySystemComponent();
+		USAbilitySystemComponent* ASC = PS->AbilitySystemComponent;
 		if (!IsValid(ASC)) return;
 		ASC->OnAbilityInputReleased(InInputTag);
 	};	

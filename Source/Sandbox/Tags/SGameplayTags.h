@@ -10,6 +10,7 @@ namespace Sandbox
 	UE_DECLARE_GAMEPLAY_TAG_EXTERN(InputTag_Look);
 	UE_DECLARE_GAMEPLAY_TAG_EXTERN(InputTag_Equip);
 	UE_DECLARE_GAMEPLAY_TAG_EXTERN(InputTag_Unequip);
+	UE_DECLARE_GAMEPLAY_TAG_EXTERN(InputTag_Interact);
 	UE_DECLARE_GAMEPLAY_TAG_EXTERN(InputTag_LightAttack_Axe);
 	UE_DECLARE_GAMEPLAY_TAG_EXTERN(InputTag_HeavyAttack_Axe);
 	UE_DECLARE_GAMEPLAY_TAG_EXTERN(InputTag_Roll);
@@ -79,6 +80,10 @@ namespace Sandbox
 	// Attack Types
 	UE_DECLARE_GAMEPLAY_TAG_EXTERN(Player_SetByCaller_AttackType_Light);
 	UE_DECLARE_GAMEPLAY_TAG_EXTERN(Player_SetByCaller_AttackType_Heavy);
+	
+	// Data
+	UE_DECLARE_GAMEPLAY_TAG_EXTERN(Data_Ability_Stackable);
+	UE_DECLARE_GAMEPLAY_TAG_EXTERN(Data_Ability_Dash_Cooldown);
 
 	// Enemy Tags
 	UE_DECLARE_GAMEPLAY_TAG_EXTERN(Enemy_Weapon);
@@ -100,6 +105,7 @@ namespace Sandbox
 	UE_DECLARE_GAMEPLAY_TAG_EXTERN(Shared_Event_Killed);
 	UE_DECLARE_GAMEPLAY_TAG_EXTERN(Shared_Event_Exhausted);
 	UE_DECLARE_GAMEPLAY_TAG_EXTERN(Shared_Event_NoMana);
+	UE_DECLARE_GAMEPLAY_TAG_EXTERN(Shared_Event_NoDash);
 	UE_DECLARE_GAMEPLAY_TAG_EXTERN(Shared_SetByCaller_BaseDamage);
 
 	// Shared Ability Tags

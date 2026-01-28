@@ -3,12 +3,11 @@
 #pragma once
 
 #include "CoreMinimal.h"
-#include "AbilitySystemInterface.h"
-#include "AttributeSet.h"
 #include "AbilitySystem/SAbilitySystemComponent.h"
 #include "AbilitySystem/AttributeSet/SMetaAttributeSet.h"
 #include "AbilitySystem/AttributeSet/SPrimaryAttributeSet.h"
 #include "AbilitySystem/AttributeSet/SSecondaryAttributeSet.h"
+#include "AbilitySystem/AttributeSet/SStackAttributeSet.h"
 #include "Data/Player/SPlayerInitialData.h"
 #include "Engine/StreamableManager.h"
 #include "GameFramework/PlayerState.h"
@@ -18,17 +17,18 @@
  * 
  */
 UCLASS()
-class SANDBOX_API ASPlayerState : public APlayerState, public IAbilitySystemInterface
+class SANDBOX_API ASPlayerState : public APlayerState
 {
 	GENERATED_BODY()
 public:
 	ASPlayerState();
 	
-	virtual void OnPossess(APawn* InPawn);
-	virtual void OnRep_PlayerState();
-	
-	virtual USAbilitySystemComponent* GetAbilitySystemComponent() const override;
 	TArray<TObjectPtr<USAttributeSetBase>> GetAttributeSet() const;
+	
+	UPROPERTY(VisibleAnywhere, Category = "Sandbox | AbilitySystem")
+	TObjectPtr<USAbilitySystemComponent> AbilitySystemComponent;
+	
+	void InitActorInfo(APlayerState* PlayerState, APawn* InPawn);
 	
 protected:
 	
@@ -37,7 +37,7 @@ protected:
 	void RequestCharacterDataToLoad(TSoftObjectPtr<USPlayerInitialData> InCharacterData);
 	void ApplyStartUpData(TSoftObjectPtr<USPlayerInitialData> InCharacterData);
 	
-	void InitActorInfo(APlayerState* PlayerState, APawn* InPawn);
+	
 	
 	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Sandbox | AbilitySystem")
 	EGameplayEffectReplicationMode ReplicationMode = EGameplayEffectReplicationMode::Mixed;
@@ -47,9 +47,6 @@ protected:
 	
 private:
 	
-	UPROPERTY(VisibleAnywhere, Category = "Sandbox | AbilitySystem")
-	TObjectPtr<USAbilitySystemComponent> AbilitySystemComponent;
-	
 	UPROPERTY()
 	TObjectPtr<USMetaAttributeSet> MetaAttributeSet;
 	
@@ -58,6 +55,9 @@ private:
 	
 	UPROPERTY()
 	TObjectPtr<USSecondaryAttributeSet> SecondaryAttributeSet;
+	
+	UPROPERTY()
+	TObjectPtr<USStackAttributeSet> StackAttributeSet;
 	
 	TSharedPtr<FStreamableHandle> StreamableHandle;
 };

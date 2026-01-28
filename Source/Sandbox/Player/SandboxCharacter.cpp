@@ -7,10 +7,7 @@
 #include "GameFramework/CharacterMovementComponent.h"
 #include "GameFramework/SpringArmComponent.h"
 #include "GameFramework/Controller.h"
-#include "EnhancedInputComponent.h"
-#include "EnhancedInputSubsystems.h"
-#include "InputActionValue.h"
-#include "Sandbox.h"
+#include "SPlayerState.h"
 
 ASandboxCharacter::ASandboxCharacter()
 {
@@ -48,4 +45,33 @@ ASandboxCharacter::ASandboxCharacter()
 
 	// Note: The skeletal mesh and anim blueprint references on the Mesh component (inherited from Character) 
 	// are set in the derived blueprint asset named ThirdPersonCharacter (to avoid direct content references in C++)
+}
+
+USAbilitySystemComponent* ASandboxCharacter::GetAbilitySystemComponent() const
+{
+	if (ASPlayerState* PS = GetPlayerState<ASPlayerState>())
+	{
+		return PS->AbilitySystemComponent;
+	}
+	return nullptr;
+}
+
+void ASandboxCharacter::PossessedBy(AController* NewController)
+{
+	Super::PossessedBy(NewController);
+	
+	if (ASPlayerState* PS = GetPlayerState<ASPlayerState>())
+	{
+		PS->InitActorInfo(PS, this);
+	}
+}
+
+void ASandboxCharacter::OnRep_PlayerState()
+{
+	Super::OnRep_PlayerState();
+	
+	if (ASPlayerState* PS = GetPlayerState<ASPlayerState>())
+	{
+		PS->InitActorInfo(PS, this);
+	}
 }

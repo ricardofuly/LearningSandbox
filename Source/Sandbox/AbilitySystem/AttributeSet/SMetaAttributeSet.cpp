@@ -88,7 +88,7 @@ void USMetaAttributeSet::PostGameplayEffectExecute(const FGameplayEffectModCallb
 			FGameplayEventData Payload;
 			Payload.Instigator = Data.Target.GetAvatarActor();
 		
-			UAbilitySystemBlueprintLibrary::SendGameplayEventToActor(Data.EffectSpec.GetEffectContext().GetInstigator(), Sandbox::Shared_Event_Killed, Payload);
+			UAbilitySystemBlueprintLibrary::SendGameplayEventToActor(Data.Target.GetAvatarActor(), Sandbox::Shared_Event_Killed, Payload);
 		}
 	}
 
@@ -100,7 +100,7 @@ void USMetaAttributeSet::PostGameplayEffectExecute(const FGameplayEffectModCallb
 			FGameplayEventData Payload;
 			Payload.Instigator = Data.EffectSpec.GetEffectContext().GetInstigator();
 		
-			UAbilitySystemBlueprintLibrary::SendGameplayEventToActor(Data.EffectSpec.GetEffectContext().GetInstigator(), Sandbox::Shared_Event_NoMana, Payload);
+			UAbilitySystemBlueprintLibrary::SendGameplayEventToActor(Data.Target.GetAvatarActor(), Sandbox::Shared_Event_NoMana, Payload);
 		}
 	}
 
@@ -112,7 +112,7 @@ void USMetaAttributeSet::PostGameplayEffectExecute(const FGameplayEffectModCallb
 			FGameplayEventData Payload;
 			Payload.Instigator = Data.EffectSpec.GetEffectContext().GetInstigator();
 		
-			UAbilitySystemBlueprintLibrary::SendGameplayEventToActor(Data.EffectSpec.GetEffectContext().GetInstigator(), Sandbox::Shared_Event_Exhausted, Payload);
+			UAbilitySystemBlueprintLibrary::SendGameplayEventToActor(Data.Target.GetAvatarActor(), Sandbox::Shared_Event_Exhausted, Payload);
 		}
 	}
 	
@@ -143,7 +143,8 @@ void USMetaAttributeSet::AddXP(float Amount, const FGameplayEffectModCallbackDat
 		CurrentXP -= GetRequiredXPForNextLevel();
 		CurrentLevel += 1.f;
 
-		UAbilitySystemBlueprintLibrary::SendGameplayEventToActor(Data.EffectSpec.GetEffectContext().GetInstigator(), Sandbox::Player_Event_LevelUp, Payload);
+		UAbilitySystemBlueprintLibrary::SendGameplayEventToActor(Data.Target.GetAvatarActor(), Sandbox::Player_Event_LevelUp, Payload);
+		GEngine->AddOnScreenDebugMessage(-1, 5.f, FColor::Green, FString::Printf(TEXT("Leveled Up! New Level: %d, %s"), FMath::FloorToInt(CurrentLevel), *Data.Target.GetAvatarActor()->GetName()));
 	}
  
 	SetXP(CurrentXP);
@@ -153,5 +154,5 @@ void USMetaAttributeSet::AddXP(float Amount, const FGameplayEffectModCallbackDat
 
 float USMetaAttributeSet::GetRequiredXPForNextLevel() const
 {
-	return FMath::Pow(2.5f, GetLevel()) * 100.f;
+	return 200.f * FMath::Pow(1.15f, GetLevel());
 }

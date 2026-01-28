@@ -40,13 +40,16 @@ protected:
 	virtual void EndAbility(const FGameplayAbilitySpecHandle Handle, const FGameplayAbilityActorInfo* ActorInfo, const FGameplayAbilityActivationInfo ActivationInfo, bool bReplicateEndAbility, bool bWasCancelled) override;
 	
 	UFUNCTION(BlueprintPure, Category="Sandbox | Ability")
-	ASandboxCharacter* GetPlayerCharacterFromActorInfo();
+	ASandboxCharacter* GetPlayerCharacterFromActorInfo() const;
 
 	UFUNCTION(BlueprintPure, Category="Sandbox | Ability")
-	ASandboxPlayerController* GetPlayerControllerFromActorInfo();
+	ASandboxPlayerController* GetPlayerControllerFromActorInfo() const;
 
 	UFUNCTION(BlueprintPure, Category="Sandbox | Ability")
 	USAbilitySystemComponent* GetAbilitySystemFromActorInfo() const;
+	
+	UFUNCTION(BlueprintPure, Category="Sandbox | Ability")
+	float GetAvatarActorLevel() const;
 
 private:
 	TWeakObjectPtr<ASandboxCharacter> CachedPlayerCharacter;

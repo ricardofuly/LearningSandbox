@@ -3,6 +3,8 @@
 #pragma once
 
 #include "CoreMinimal.h"
+#include "AbilitySystemInterface.h"
+#include "AbilitySystem/SAbilitySystemComponent.h"
 #include "GameFramework/Character.h"
 #include "Logging/LogMacros.h"
 #include "SandboxCharacter.generated.h"
@@ -19,7 +21,7 @@ DECLARE_LOG_CATEGORY_EXTERN(LogTemplateCharacter, Log, All);
  *  Implements a controllable orbiting camera
  */
 UCLASS(abstract)
-class ASandboxCharacter : public ACharacter
+class ASandboxCharacter : public ACharacter, public IAbilitySystemInterface
 {
 	GENERATED_BODY()
 
@@ -35,6 +37,13 @@ public:
 
 	/** Constructor */
 	ASandboxCharacter();	
+	
+	//~ Begin IAbilitySystemInterface interface
+	virtual USAbilitySystemComponent* GetAbilitySystemComponent() const override;
+	//~ End IAbilitySystemInterface interface
+	
+	virtual void PossessedBy(AController* NewController) override;
+	virtual void OnRep_PlayerState() override;
 	
 	/** Returns CameraBoom subobject **/
 	FORCEINLINE class USpringArmComponent* GetCameraBoom() const { return CameraBoom; }

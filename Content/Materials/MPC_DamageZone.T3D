@@ -1,0 +1,9 @@
+Begin Object Class=/Script/Engine.MaterialParameterCollection Name="MPC_DamageZone" ExportPath="/Script/Engine.MaterialParameterCollection'/Game/Art/Materials/PPM/DamageZone/MPC_DamageZone.MPC_DamageZone'"
+   StateId=B26E5B89467D1E5384578EB8836B67D8
+   ScalarParameters(0)=(DefaultValue=12000.000000,ParameterName="CircleRadius",Id=95DF13424FF779843762BCBC438F8589)
+   ScalarParameters(1)=(DefaultValue=20.000000,ParameterName="OutlineWidth",Id=46EFDA0A4137755F5891B9B892130109)
+   ScalarParameters(2)=(DefaultValue=500.000000,ParameterName="GlowRadius",Id=F3A625674C49BE467BB479A2CDEAB841)
+   VectorParameters(0)=(ParameterName="CircleOrigin",Id=DDB29E124B462CE961288C87B8FEF65D)
+   VectorParameters(1)=(DefaultValue=(R=0.000000,G=0.258824,B=1.000000,A=1.000000),ParameterName="DamageAreaColor",Id=639FD6924FC6BC36460C5E8353D5040C)
+   VectorParameters(2)=(DefaultValue=(R=0.000000,G=9.999998,B=10.000000,A=1.000000),ParameterName="GlowColor",Id=549B52FE42F0734BCA2C909A3D507A0A)
+End Object

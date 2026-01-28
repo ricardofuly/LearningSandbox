@@ -7,6 +7,7 @@ namespace Sandbox
 	UE_DEFINE_GAMEPLAY_TAG(InputTag_Look, "Input.Look");
 	UE_DEFINE_GAMEPLAY_TAG(InputTag_Equip, "Input.Equip");
 	UE_DEFINE_GAMEPLAY_TAG(InputTag_Unequip, "Input.Unequip");
+	UE_DEFINE_GAMEPLAY_TAG(InputTag_Interact, "Input.Interact");
 	UE_DEFINE_GAMEPLAY_TAG(InputTag_LightAttack_Axe, "Input.LightAttack.Axe");
 	UE_DEFINE_GAMEPLAY_TAG(InputTag_HeavyAttack_Axe, "Input.HeavyAttack.Axe");
 	UE_DEFINE_GAMEPLAY_TAG(InputTag_Roll, "Input.Roll");
@@ -76,7 +77,10 @@ namespace Sandbox
 	// Attack Types
 	UE_DEFINE_GAMEPLAY_TAG(Player_SetByCaller_AttackType_Light, "Player.SetByCaller.AttackType.Light");
 	UE_DEFINE_GAMEPLAY_TAG(Player_SetByCaller_AttackType_Heavy, "Player.SetByCaller.AttackType.Heavy");
-
+	
+	// Data
+	UE_DEFINE_GAMEPLAY_TAG(Data_Ability_Stackable, "Data.Ability.Stackable");
+	UE_DEFINE_GAMEPLAY_TAG(Data_Ability_Dash_Cooldown, "Data.Ability.Dash.Cooldown");
 
 	// Enemy Tags
 	UE_DEFINE_GAMEPLAY_TAG(Enemy_Weapon, "Enemy.Weapon");
@@ -94,6 +98,7 @@ namespace Sandbox
 	UE_DEFINE_GAMEPLAY_TAG(Shared_Event_Killed, "Shared.Event.Killed");
 	UE_DEFINE_GAMEPLAY_TAG(Shared_Event_Exhausted, "Shared.Event.Exhausted");
 	UE_DEFINE_GAMEPLAY_TAG(Shared_Event_NoMana, "Shared.Event.NoMana");
+	UE_DEFINE_GAMEPLAY_TAG(Shared_Event_NoDash, "Shared.Event.NoDash");
 	UE_DEFINE_GAMEPLAY_TAG(Shared_Event_SpawnProjectile, "Shared.Event.SpawnProjectile");
 	
 	UE_DEFINE_GAMEPLAY_TAG(Shared_SetByCaller_BaseDamage, "Shared.SetByCaller.BaseDamage");
