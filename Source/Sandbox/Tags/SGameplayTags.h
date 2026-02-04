@@ -106,6 +106,8 @@ namespace Sandbox
 	UE_DECLARE_GAMEPLAY_TAG_EXTERN(Shared_Event_Exhausted);
 	UE_DECLARE_GAMEPLAY_TAG_EXTERN(Shared_Event_NoMana);
 	UE_DECLARE_GAMEPLAY_TAG_EXTERN(Shared_Event_NoDash);
+	UE_DECLARE_GAMEPLAY_TAG_EXTERN(Shared_Event_NoFireBall);
+	UE_DECLARE_GAMEPLAY_TAG_EXTERN(Shared_Event_FireBall_Charged);
 	UE_DECLARE_GAMEPLAY_TAG_EXTERN(Shared_SetByCaller_BaseDamage);
 
 	// Shared Ability Tags

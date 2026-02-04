@@ -12,6 +12,8 @@ USStackAttributeSet::USStackAttributeSet()
 {
 	InitDashStacks(0.f);
 	InitDashMaxStacks(3.f);
+	InitFireBallStacks(0.f);
+	InitFireBallMaxStacks(3.f);
 }
 
 void USStackAttributeSet::GetLifetimeReplicatedProps(TArray<FLifetimeProperty>& OutLifetimeProps) const
@@ -34,6 +36,15 @@ void USStackAttributeSet::PreAttributeBaseChange(const FGameplayAttribute& Attri
 			NewValue = CurrentDashStacks;
 		}
 	}
+
+	if (Attribute == GetFireBallMaxStacksAttribute())
+	{
+		float CurrentFireBallStacks = GetFireBallStacks();
+		if (CurrentFireBallStacks > NewValue)
+		{
+			NewValue = CurrentFireBallStacks;
+		}
+	}
 }
 
 void USStackAttributeSet::PostGameplayEffectExecute(const FGameplayEffectModCallbackData& Data)
@@ -49,6 +60,18 @@ void USStackAttributeSet::PostGameplayEffectExecute(const FGameplayEffectModCall
 			Payload.Instigator = Data.Target.GetAvatarActor();
 		
 			UAbilitySystemBlueprintLibrary::SendGameplayEventToActor(Data.EffectSpec.GetEffectContext().GetInstigator(), Sandbox::Shared_Event_NoDash, Payload);
+		}
+	}
+
+	if (Data.EvaluatedData.Attribute == GetFireBallMaxStacksAttribute())
+	{
+		SetFireBallStacks(FMath::Clamp(GetFireBallStacks(), 0.f, GetFireBallMaxStacks()));
+		if (GetFireBallStacks() <= 0.f)
+		{
+			FGameplayEventData Payload;
+			Payload.Instigator = Data.Target.GetAvatarActor();
+		
+			UAbilitySystemBlueprintLibrary::SendGameplayEventToActor(Data.EffectSpec.GetEffectContext().GetInstigator(), Sandbox::Shared_Event_NoFireBall, Payload);
 		}
 	}
 }

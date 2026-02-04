@@ -18,7 +18,7 @@ public:
 	
 	// Called every frame
 	virtual void TickComponent(float DeltaTime, ELevelTick TickType,
-							   FActorComponentTickFunction* ThisTickFunction) override;
+		                       FActorComponentTickFunction* ThisTickFunction) override;
 	
 	virtual void OnGiveAbility(FGameplayAbilitySpec& AbilitySpec) override;
 	virtual void OnRep_ActivateAbilities() override;
@@ -35,6 +35,9 @@ public:
 	
 	UFUNCTION(BlueprintCallable, Category = "Solaries | Abilities")
 	void RemoveGrantedAbilities(UPARAM(ref) TArray<FGameplayAbilitySpecHandle>& InSpecHandleToRemove);
+
+	UFUNCTION(BlueprintCallable, Category = "Sandbox | GameplayEffects")
+	bool ApplyGameplayEffectWithSetByCaller(TSubclassOf<UGameplayEffect> GameplayEffectClass, FGameplayTag SetByCallerTag, float Magnitude);
 
 protected:
 	// Called when the game starts

@@ -1,9 +1,7 @@
-﻿// Fill out your copyright notice in the Description page of Project Settings.
-
-
-#include "SAbilitySystemComponent.h"
+﻿#include "SAbilitySystemComponent.h"
 
 #include "Tags/SGameplayTags.h"
+#include "AbilitySystem/Helpers/SGameplayEffectHelpers.h"
 
 
 // Sets default values for this component's properties
@@ -142,3 +140,7 @@ void USAbilitySystemComponent::HandleAutoActivateAbility(const FGameplayAbilityS
 	}
 }
 
+bool USAbilitySystemComponent::ApplyGameplayEffectWithSetByCaller(TSubclassOf<UGameplayEffect> GameplayEffectClass, FGameplayTag SetByCallerTag, float Magnitude)
+{
+	return SandboxGEs::ApplySetByCallerToASC(this, GameplayEffectClass, SetByCallerTag, Magnitude, Cast<AActor>(GetOwner()));
+}

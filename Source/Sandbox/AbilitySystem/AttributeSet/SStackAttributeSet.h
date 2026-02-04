@@ -31,6 +31,14 @@ public:
 	FGameplayAttributeData DashMaxStacks;
 	ATTRIBUTE_ACCESSORS(ThisClass, DashMaxStacks);
 	
+	UPROPERTY(BlueprintReadOnly, ReplicatedUsing = OnRep_FireBallStacks)
+	FGameplayAttributeData FireBallStacks;
+	ATTRIBUTE_ACCESSORS(ThisClass, FireBallStacks);
+
+	UPROPERTY(BlueprintReadOnly, ReplicatedUsing = OnRep_FireBallMaxStacks)
+	FGameplayAttributeData FireBallMaxStacks;
+	ATTRIBUTE_ACCESSORS(ThisClass, FireBallMaxStacks);
+	
 protected:
 	
 	UFUNCTION()
@@ -38,4 +46,10 @@ protected:
 
 	UFUNCTION()
 	FORCEINLINE void OnRep_DashMaxStacks(const FGameplayAttributeData& OldValue) const {GAMEPLAYATTRIBUTE_REPNOTIFY(ThisClass, DashMaxStacks, OldValue);}
+	
+	UFUNCTION()
+	FORCEINLINE void OnRep_FireBallStacks(const FGameplayAttributeData& OldValue) const {GAMEPLAYATTRIBUTE_REPNOTIFY(ThisClass, FireBallStacks, OldValue);}
+
+	UFUNCTION()
+	FORCEINLINE void OnRep_FireBallMaxStacks(const FGameplayAttributeData& OldValue) const {GAMEPLAYATTRIBUTE_REPNOTIFY(ThisClass, FireBallMaxStacks, OldValue);}
 };

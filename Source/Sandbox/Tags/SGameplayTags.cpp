@@ -99,6 +99,8 @@ namespace Sandbox
 	UE_DEFINE_GAMEPLAY_TAG(Shared_Event_Exhausted, "Shared.Event.Exhausted");
 	UE_DEFINE_GAMEPLAY_TAG(Shared_Event_NoMana, "Shared.Event.NoMana");
 	UE_DEFINE_GAMEPLAY_TAG(Shared_Event_NoDash, "Shared.Event.NoDash");
+	UE_DEFINE_GAMEPLAY_TAG(Shared_Event_NoFireBall, "Shared.Event.NoFireBall");
+	UE_DEFINE_GAMEPLAY_TAG(Shared_Event_FireBall_Charged, "Shared.Event.FireBall.Charged");
 	UE_DEFINE_GAMEPLAY_TAG(Shared_Event_SpawnProjectile, "Shared.Event.SpawnProjectile");
 	
 	UE_DEFINE_GAMEPLAY_TAG(Shared_SetByCaller_BaseDamage, "Shared.SetByCaller.BaseDamage");
