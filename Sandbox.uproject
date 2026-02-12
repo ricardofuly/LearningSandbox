@@ -42,6 +42,10 @@
 		{
 			"Name": "NetworkPrediction",
 			"Enabled": true
+		},
+		{
+			"Name": "SInventory",
+			"Enabled": true
 		}
 	]
 }

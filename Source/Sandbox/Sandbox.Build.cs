@@ -24,7 +24,12 @@ public class Sandbox : ModuleRules
 			"GameplayTasks"
 		});
 
-		PrivateDependencyModuleNames.AddRange(new string[] { });
+		PrivateDependencyModuleNames.AddRange(new string[]
+		{
+			"AnimGraph",
+			"BlueprintGraph",
+			"UnrealEd"
+		});
 
 		PublicIncludePaths.AddRange(new string[] {
 			"Sandbox",

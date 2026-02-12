@@ -1,0 +1,26 @@
+{
+	"FileVersion": 3,
+	"Version": 1,
+	"VersionName": "0.1",
+	"FriendlyName": "Obsidian Interaction",
+	"Description": "A flexible, component-based solution for dynamic interactions",
+	"Category": "System",
+	"CreatedBy": "Fuly Software",
+	"CreatedByURL": "",
+	"DocsURL": "https://slap-studio.gitbook.io/obsidian-interaction-plugin/",
+	"MarketplaceURL": "com.epicgames.launcher://ue/Fab/product/d17e56d3-3978-410a-970e-d38edab5c264",
+	"SupportURL": "lricardofs@gmail.com",
+	"EngineVersion": "5.7.0",
+	"CanContainContent": true,
+	"Installed": true,
+	"Modules": [
+		{
+			"Name": "ObsidianInteraction",
+			"Type": "Runtime",
+			"LoadingPhase": "Default",
+			"PlatformAllowList": [
+				"Win64"
+			]
+		}
+	]
+}

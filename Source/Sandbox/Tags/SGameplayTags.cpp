@@ -47,6 +47,7 @@ namespace Sandbox
 	UE_DEFINE_GAMEPLAY_TAG(Player_Weapon_TwinSword, "Player.Weapon.TwinSword");
 
 	// Events
+	UE_DEFINE_GAMEPLAY_TAG(Player_Event_InCombat, "Player.Event.InCombat");
 	UE_DEFINE_GAMEPLAY_TAG(Player_Event_Weapon_Equipped, "Player.Event.Weapon.Equipped.Axe");
 	UE_DEFINE_GAMEPLAY_TAG(Player_Event_Weapon_Equipped_LightSword, "Player.Event.Weapon.Equipped.LightSword");
 	UE_DEFINE_GAMEPLAY_TAG(Player_Event_Weapon_Equipped_GreatSword, "Player.Event.Weapon.Equipped.GreatSword");

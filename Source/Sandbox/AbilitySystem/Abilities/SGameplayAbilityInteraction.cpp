@@ -12,9 +12,27 @@ USGameplayAbilityInteraction::USGameplayAbilityInteraction()
 	NetExecutionPolicy = EGameplayAbilityNetExecutionPolicy::ServerOnly;
 }
 
+void USGameplayAbilityInteraction::ListenToRequestedTag(FName TagName)
+{
+	if (UAbilitySystemComponent* ASC = GetAbilitySystemComponentFromActorInfo())
+	{
+		FGameplayTag RequestedTag = FGameplayTag::RequestGameplayTag(TagName);
+		
+		ASC->RegisterGameplayTagEvent(RequestedTag, EGameplayTagEventType::NewOrRemoved).AddUObject(this, &ThisClass::OnTagAdded);
+	}
+}
+
+void USGameplayAbilityInteraction::OnTagAdded(FGameplayTag Tag, int32 NewCount)
+{
+	if (NewCount > 0)
+	{
+		OnGameplayTagAdded.Broadcast(Tag);
+	}
+}
+
 void USGameplayAbilityInteraction::ActivateAbility(const FGameplayAbilitySpecHandle Handle,
-	const FGameplayAbilityActorInfo* ActorInfo, const FGameplayAbilityActivationInfo ActivationInfo,
-	const FGameplayEventData* TriggerEventData)
+                                                   const FGameplayAbilityActorInfo* ActorInfo, const FGameplayAbilityActivationInfo ActivationInfo,
+                                                   const FGameplayEventData* TriggerEventData)
 {
 	AActor* AvatarActor = ActorInfo->AvatarActor.Get();
 	if (!AvatarActor)

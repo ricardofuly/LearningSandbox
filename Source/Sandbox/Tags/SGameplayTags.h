@@ -50,6 +50,7 @@ namespace Sandbox
 	UE_DECLARE_GAMEPLAY_TAG_EXTERN(Player_Weapon_TwinSword);
 
 	// Events
+	UE_DECLARE_GAMEPLAY_TAG_EXTERN(Player_Event_InCombat);
 	UE_DECLARE_GAMEPLAY_TAG_EXTERN(Player_Event_Weapon_Equipped_Axe);
 	UE_DECLARE_GAMEPLAY_TAG_EXTERN(Player_Event_Weapon_Equipped_LightSword);
 	UE_DECLARE_GAMEPLAY_TAG_EXTERN(Player_Event_Weapon_Equipped_GreatSword);
