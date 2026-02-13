@@ -59,7 +59,7 @@ class USLoadingScreenManager : public UGameInstanceSubsystem, public FTickableGa
 	}
 
 	/** Called when the loading screen visibility changes  */
-	DECLARE_MULTICAST_DELEGATE_OneParam(FOnLoadingScreenVisibilityChangedDelegate, bool);
+	DECLARE_DYNAMIC_MULTICAST_DELEGATE_OneParam(FOnLoadingScreenVisibilityChangedDelegate, bool, IsVisible);
 	FORCEINLINE FOnLoadingScreenVisibilityChangedDelegate& OnLoadingScreenVisibilityChangedDelegate() { return LoadingScreenVisibilityChanged; }
 
 	 UE_API void RegisterLoadingProcessor(TScriptInterface<ISLoadingProcessInterface> Interface);
@@ -100,6 +100,7 @@ private:
 
 private:
 	/** Delegate broadcast when the loading screen visibility changes */
+	UPROPERTY(BlueprintAssignable)
 	FOnLoadingScreenVisibilityChangedDelegate LoadingScreenVisibilityChanged;
 
 	/** A reference to the loading screen widget we are displaying (if any) */

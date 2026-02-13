@@ -7,6 +7,9 @@
 #include "Net/UnrealNetwork.h"
 
 
+
+struct FEquippedItem;
+
 // Sets default values for this component's properties
 USInventoryComponent::USInventoryComponent()
 {

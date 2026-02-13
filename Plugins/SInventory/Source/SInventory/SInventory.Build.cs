@@ -26,7 +26,7 @@ public class SInventory : ModuleRules
 			new string[]
 			{
 				"Core", 
-				"NetCore",
+				"NetCore"
 				// ... add other public dependencies that you statically link with here ...
 			}
 			);
@@ -38,7 +38,7 @@ public class SInventory : ModuleRules
 				"CoreUObject",
 				"Engine",
 				"Slate",
-				"SlateCore",
+				"SlateCore", 
 				// ... add private dependencies that you statically link with here ...	
 			}
 			);

@@ -46,6 +46,18 @@
 		{
 			"Name": "SInventory",
 			"Enabled": true
+		},
+		{
+			"Name": "UIManager",
+			"Enabled": true
+		},
+		{
+			"Name": "EquipmentManager",
+			"Enabled": true
+		},
+		{
+			"Name": "CombatTraces",
+			"Enabled": true
 		}
 	]
 }

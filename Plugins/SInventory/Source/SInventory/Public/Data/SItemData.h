@@ -27,6 +27,18 @@ public:
 
 	UPROPERTY(EditDefaultsOnly, BlueprintReadOnly)
 	EEquipmentSlot EquipSlot;
+	
+	UPROPERTY(EditDefaultsOnly, BlueprintReadOnly)
+	bool UseSkeletalMesh = false;
+	
+	UPROPERTY(EditDefaultsOnly, BlueprintReadOnly, meta=(EditCondition="UseSkeletalMesh", EditConditionHides))
+	USkeletalMeshComponent* ItemSkeletalMesh = nullptr;
+	
+	UPROPERTY(EditDefaultsOnly, BlueprintReadOnly, meta=(EditCondition="!UseSkeletalMesh", EditConditionHides))
+	UStaticMeshComponent* ItemStaticMesh = nullptr;
+	
+	UPROPERTY(EditDefaultsOnly, BlueprintReadOnly)
+	FName SocketToAttach = NAME_None;
 
 	UPROPERTY(EditDefaultsOnly, BlueprintReadOnly)
 	UTexture2D* Icon;

@@ -21,14 +21,15 @@ public class Sandbox : ModuleRules
 			"Slate",
 			"GameplayAbilities",
 			"GameplayTags",
-			"GameplayTasks"
+			"GameplayTasks",
+			"EquipmentManager"
 		});
 
 		PrivateDependencyModuleNames.AddRange(new string[]
 		{
 			"AnimGraph",
 			"BlueprintGraph",
-			"UnrealEd"
+			"UnrealEd", "SLoadingScreen"
 		});
 
 		PublicIncludePaths.AddRange(new string[] {

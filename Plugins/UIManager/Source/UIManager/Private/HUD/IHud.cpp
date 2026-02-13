@@ -1,0 +1,59 @@
+﻿// Fill out your copyright notice in the Description page of Project Settings.
+
+
+#include "HUD/IHud.h"
+
+#include "UIManager.h"
+#include "Subsystem/UILayersManagerSubsystem.h"
+
+void AIHud::BeginPlay()
+{
+	Super::BeginPlay();
+	
+	InitializeLayout();
+}
+
+void AIHud::InitializeLayout()
+{
+	APlayerController* PC = GetOwningPlayerController();
+	if (!PC)
+	{
+		UE_LOG(LogUILayersManager, Warning, TEXT("InitializeLayout: PlayerController not found"));
+		return;
+	}
+
+	ULocalPlayer* LP = PC->GetLocalPlayer();
+	if (!LP)
+	{
+		UE_LOG(LogUILayersManager, Warning, TEXT("InitializeLayout: Local Player not found"));
+		return;
+	}
+
+	UUILayersManagerSubsystem* Subsystem = LP->GetSubsystem<UUILayersManagerSubsystem>();
+	if (!Subsystem)
+	{
+		return;
+	}
+
+	// Create layers
+	for (auto& Pair : LayerDefinitions)
+	{
+		if (!Pair.Value)
+		{
+			continue;
+		}
+
+		Subsystem->CreateLayer(Pair.Key, Pair.Value);
+	}
+
+	// Push default widgets
+	for (auto& Pair : InitialWidgets)
+	{
+		if (!Pair.Value.IsNull())
+		{
+			Subsystem->PushToLayerWithCallback(Pair.Key, Pair.Value, FOnWidgetLoaded());
+		}
+	}
+
+	UE_LOG(LogUILayersManager, Log, TEXT("Initialized %d layers with default widgets"), LayerDefinitions.Num());
+}

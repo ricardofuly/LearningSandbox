@@ -8,6 +8,7 @@
 #include "SInventoryComponent.generated.h"
 
 
+class UEquipmentComponent;
 DECLARE_DYNAMIC_MULTICAST_DELEGATE_OneParam(FOnInventoryItemAdded, const FItemInstance&, Item);
 DECLARE_DYNAMIC_MULTICAST_DELEGATE_OneParam(FOnInventoryItemChanged, const FItemInstance&, Item);
 DECLARE_DYNAMIC_MULTICAST_DELEGATE_OneParam(FOnInventoryItemRemoved, const FItemInstance&, Item);
